@@ -25,4 +25,4 @@ for(let match of matches) {
   }
 }
 
-console.log(`Man united won ${manUnitedWins} games`);
+console.log(`Manchester united won ${manUnitedWins} games`);
