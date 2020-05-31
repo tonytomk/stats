@@ -1,22 +1,19 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var MatchResult_1 = require("./MatchResult");
 var MatchReader_1 = require("./MatchReader");
 var CsvFileReader_1 = require("./CsvFileReader");
+var ConsoleReport_1 = require("./reports/ConsoleReport");
+var WinzAnalysis_1 = require("./analyzers/WinzAnalysis");
+var Summary_1 = require("./Summary");
+var HtmlReport_1 = require("./reports/HtmlReport");
 // Data reader inerface
 var csvFileReader = new CsvFileReader_1.CsvFileReader('./data/football.csv');
 var reader = new MatchReader_1.MatchReader(csvFileReader);
 reader.load();
-var manUnitedWins = 0;
-for (var _i = 0, _a = reader.matches; _i < _a.length; _i++) {
-    var match = _a[_i];
-    if (match[1] === 'Man United'
-        && match[5] === MatchResult_1.MatchResult.HomeWin) {
-        manUnitedWins++;
-    }
-    else if (match[2] === 'Man United'
-        && match[5] === MatchResult_1.MatchResult.AwayWin) {
-        manUnitedWins++;
-    }
-}
-console.log("Manchester united won " + manUnitedWins + " games");
+// const reader1 = MatchReader.fromCsv('./data/football.csv');
+// reader1.load();
+// Summary.winsAnalsisWithHtmlReport('Man United');
+var summary = new Summary_1.Summary(new WinzAnalysis_1.WinzAnalysis('Man United'), new ConsoleReport_1.ConsoleReport());
+summary.buildAndPrintReport(reader.matches);
+var summary1 = new Summary_1.Summary(new WinzAnalysis_1.WinzAnalysis('Man United'), new HtmlReport_1.HtmlReport());
+summary1.buildAndPrintReport(reader.matches);
